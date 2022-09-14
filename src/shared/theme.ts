@@ -4,18 +4,17 @@ import { green, grey, red } from '@mui/material/colors'
 const rawTheme = createTheme({
   palette: {
     primary: {
-      light: '#69696a',
-      main: '#28282a',
-      dark: '#1e1e1f',
+      light: '#F0F2F2',
+      main: '#393E59',
+      dark: '#010326',
     },
     secondary: {
-      light: '#fff5f8',
-      main: '#ff3366',
-      dark: '#e62958',
+      light: '#82D9D9',
+      main: '#6FBFBF',
     },
     warning: {
-      main: '#ffc071',
-      dark: '#ffb25e',
+      main: '#F2B705',
+      dark: '#D98E04',
     },
     error: {
       light: red[50],
@@ -35,6 +34,7 @@ const rawTheme = createTheme({
     fontWeightRegular: 400, // Work Sans
     fontWeightMedium: 700, // Roboto Condensed
   },
+  spacing: 4,
 })
 
 const fontHeader = {
