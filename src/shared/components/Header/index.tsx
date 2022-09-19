@@ -10,12 +10,15 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
+import ModalSignIn from '../SignIn'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
+  const [open, setOpen] = React.useState(false)
+
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -23,6 +26,14 @@ const Header = () => {
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null)
+  }
+
+  const handleClickOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
   }
 
   return (
@@ -114,7 +125,8 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Button color="inherit">Sign in</Button>
+          <Button color="inherit" onClick={handleClickOpen}>Sign in</Button>
+          <ModalSignIn open={open} handleClose={handleClose} />
         </Toolbar>
       </Container>
     </AppBar>
