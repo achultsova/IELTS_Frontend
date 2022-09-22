@@ -91,6 +91,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 label="Name"
                 value={formik.values.name}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.name && Boolean(formik.errors.name)}
                 helperText={formik.touched.name && formik.errors.name}
                 sx={{paddingBottom: '16px'}}
@@ -102,6 +103,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 label="Surname"
                 value={formik.values.surname}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.surname && Boolean(formik.errors.surname)}
                 helperText={formik.touched.surname && formik.errors.surname}
                 sx={{paddingBottom: '16px'}}
@@ -113,6 +115,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 label="Email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
                 sx={{paddingBottom: '16px'}}
@@ -125,6 +128,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.password && Boolean(formik.errors.password)}
                 helperText={formik.touched.password && formik.errors.password}
                 sx={{paddingBottom: '16px'}}
@@ -137,6 +141,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 type="password"
                 value={formik.values.confirmPassword}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                 helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
               />
@@ -151,6 +156,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 label="Email"
                 value={formik.values.email}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.email && Boolean(formik.errors.email)}
                 helperText={formik.touched.email && formik.errors.email}
                 sx={{paddingBottom: '16px'}}
@@ -163,6 +169,7 @@ const Form: FC<Props> = ({handleClose }) => {
                 type="password"
                 value={formik.values.password}
                 onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 error={formik.touched.password && Boolean(formik.errors.password)}
                 helperText={formik.touched.password && formik.errors.password}
               />
