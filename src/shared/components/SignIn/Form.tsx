@@ -4,10 +4,20 @@ import * as yup from 'yup'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { DialogTitle, Link, Typography, Box } from '@mui/material'
+import { instance } from '../../api/instance'
 
 type Props = {
     handleClose: () => void
 }
+
+type RegistrationFormDataType = {
+  name?: string;
+  surname?: string;
+  email: string;
+  password: string;
+  confirmPassword?: string;
+};
+
 
 const validationSchema = yup.object({
   name: yup
@@ -57,8 +67,29 @@ const Form: FC<Props> = ({handleClose }) => {
       confirmPassword: ''
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2))
+    onSubmit:  async (data: RegistrationFormDataType) => {
+      if (loginSignup === 'signup') {
+        try {
+          const user = {
+            name: data.name,
+            surname: data.surname,
+            email: data.email,
+            password: data.password,
+            confirmPassword: data.confirmPassword
+          }
+          await instance.post('/registration', user)
+        } catch (err: Error) {
+          const resErrors = err.response.data.errors
+        }
+        
+      } else if (loginSignup === 'login') {
+        const user = {
+          email: data.name,
+          password: data.password
+        }
+
+      }
+   
     },
   })
 
