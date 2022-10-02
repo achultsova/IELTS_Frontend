@@ -58,6 +58,7 @@ const validationSchema = yup.object({
 const Form: FC<Props> = ({handleClose }) => {
   const [loginSignup, setLoginSignup] = useState('login')
   const [authError, setAuthError] = useState(null)
+  const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -78,8 +79,11 @@ const Form: FC<Props> = ({handleClose }) => {
             confirmPassword: data.confirmPassword
           }
           await instance.post('/registration', user)
-        } catch (err: Error) {
-          const resErrors = err.response.data.errors
+          setShowConfirm(true)
+        } catch (error) {
+          let message: string
+          if (error instanceof Error) message = error.message
+          else message = String(error)
         }
         
       } else if (loginSignup === 'login') {
@@ -101,139 +105,152 @@ const Form: FC<Props> = ({handleClose }) => {
   }
   return (
     <Box px={3} sx={{width: '300px'}}>
-      <DialogTitle>
-        {loginSignup === 'signup' ? (
-          'SIGN UP') : ('SIGN IN')}
-      </DialogTitle>
-      <form style={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: '16px',
-      }} onSubmit={formik.handleSubmit}>
-        {loginSignup === 'signup'
-          ? (
-            <Box>
-              <TextField
-                fullWidth
-                id="name"
-                name="name"
-                label="Name"
-                value={formik.values.name}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.name && Boolean(formik.errors.name)}
-                helperText={formik.touched.name && formik.errors.name}
-                sx={{paddingBottom: '16px'}}
-              />
-              <TextField
-                fullWidth
-                id="surname"
-                name="surname"
-                label="Surname"
-                value={formik.values.surname}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.surname && Boolean(formik.errors.surname)}
-                helperText={formik.touched.surname && formik.errors.surname}
-                sx={{paddingBottom: '16px'}}
-              />
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-                sx={{paddingBottom: '16px'}}
-              />
-              <TextField
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                type="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
-                sx={{paddingBottom: '16px'}}
-              />
-              <TextField
-                fullWidth
-                id="confirmPassword"
-                name="confirmPassword"
-                label="Confirm password"
-                type="password"
-                value={formik.values.confirmPassword}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
-              />
-            </Box>
-          )
-          : (
-            <Box>
-              <TextField
-                fullWidth
-                id="email"
-                name="email"
-                label="Email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-                sx={{paddingBottom: '16px'}}
-              />
-              <TextField
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                type="password"
-                value={formik.values.password}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-                error={formik.touched.password && Boolean(formik.errors.password)}
-                helperText={formik.touched.password && formik.errors.password}
-              />
-            </Box>
-          )}
-        <Box py={3}>
-          <Typography>
-            {loginSignup === 'signup' ? (
-              <>
+      {
+        showConfirm ? (
+          <Box>
+            <DialogTitle>
+            A confirmation email has been sent to your email address!
+            </DialogTitle>
+          </Box>
+        ) : (
+          <Box>
+            <DialogTitle>
+              {loginSignup === 'signup' ? (
+                'SIGN UP') : ('SIGN IN')}
+            </DialogTitle>
+            <form style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '16px',
+            }} onSubmit={formik.handleSubmit}>
+              {loginSignup === 'signup'
+                ? (
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="name"
+                      name="name"
+                      label="Name"
+                      value={formik.values.name}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.name && Boolean(formik.errors.name)}
+                      helperText={formik.touched.name && formik.errors.name}
+                      sx={{paddingBottom: '16px'}}
+                    />
+                    <TextField
+                      fullWidth
+                      id="surname"
+                      name="surname"
+                      label="Surname"
+                      value={formik.values.surname}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.surname && Boolean(formik.errors.surname)}
+                      helperText={formik.touched.surname && formik.errors.surname}
+                      sx={{paddingBottom: '16px'}}
+                    />
+                    <TextField
+                      fullWidth
+                      id="email"
+                      name="email"
+                      label="Email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.email && Boolean(formik.errors.email)}
+                      helperText={formik.touched.email && formik.errors.email}
+                      sx={{paddingBottom: '16px'}}
+                    />
+                    <TextField
+                      fullWidth
+                      id="password"
+                      name="password"
+                      label="Password"
+                      type="password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.password && Boolean(formik.errors.password)}
+                      helperText={formik.touched.password && formik.errors.password}
+                      sx={{paddingBottom: '16px'}}
+                    />
+                    <TextField
+                      fullWidth
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      label="Confirm password"
+                      type="password"
+                      value={formik.values.confirmPassword}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
+                      helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                    />
+                  </Box>
+                )
+                : (
+                  <Box>
+                    <TextField
+                      fullWidth
+                      id="email"
+                      name="email"
+                      label="Email"
+                      value={formik.values.email}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.email && Boolean(formik.errors.email)}
+                      helperText={formik.touched.email && formik.errors.email}
+                      sx={{paddingBottom: '16px'}}
+                    />
+                    <TextField
+                      fullWidth
+                      id="password"
+                      name="password"
+                      label="Password"
+                      type="password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.password && Boolean(formik.errors.password)}
+                      helperText={formik.touched.password && formik.errors.password}
+                    />
+                  </Box>
+                )}
+              <Box py={3}>
+                <Typography>
+                  {loginSignup === 'signup' ? (
+                    <>
 							Already have an account?{' '}
-                <Link onClick={onChange} sx={{cursor: 'pointer'}}>
+                      <Link onClick={onChange} sx={{cursor: 'pointer'}}>
 								Sign In
-                </Link>
-              </>
-            ) : (
-              <>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
 							Don&lsquo;t have an account yet?{' '}
-                <Link onClick={onChange} sx={{cursor: 'pointer'}}>
+                      <Link onClick={onChange} sx={{cursor: 'pointer'}}>
 								Sign up
-                </Link>
-              </>
-            )}
-          </Typography>
-        </Box>
-        <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
-          <Button variant="outlined" onClick={handleClose}>
+                      </Link>
+                    </>
+                  )}
+                </Typography>
+              </Box>
+              <div style={{display: 'flex', justifyContent: 'space-between', width: '100%'}}>
+                <Button variant="outlined" onClick={handleClose}>
             Cancel
-          </Button>
-          <Button color="primary" type="submit" variant="contained">
+                </Button>
+                <Button color="primary" type="submit" variant="contained">
           Submit
-          </Button>
-        </div>
-      </form>
+                </Button>
+              </div>
+            </form>
+          </Box>
+        )
+      }
+     
     </Box>
   )
 }
