@@ -5,6 +5,9 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { DialogTitle, Link, Typography, Box } from '@mui/material'
 import { instance } from '../../api/instance'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import IconButton from '@mui/material/IconButton'
 
 type Props = {
     handleClose: () => void
@@ -59,13 +62,14 @@ const Form: FC<Props> = ({handleClose }) => {
   const [loginSignup, setLoginSignup] = useState('login')
   const [authError, setAuthError] = useState(null)
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
+  const [showPassword, setShowPassword] = useState(false)
   const formik = useFormik({
     initialValues: {
       name: '',
       surname: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
     },
     validationSchema: validationSchema,
     onSubmit:  async (data: RegistrationFormDataType) => {
@@ -96,6 +100,14 @@ const Form: FC<Props> = ({handleClose }) => {
    
     },
   })
+
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+  }
+
+  const handleClickShowPassword = () => {
+    setShowPassword(!showPassword )
+  }
 
   const onChange = () => {
     setAuthError(null)
@@ -169,25 +181,43 @@ const Form: FC<Props> = ({handleClose }) => {
                       id="password"
                       name="password"
                       label="Password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       error={formik.touched.password && Boolean(formik.errors.password)}
                       helperText={formik.touched.password && formik.errors.password}
                       sx={{paddingBottom: '16px'}}
+                      InputProps={{
+                        endAdornment:
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                      }}
                     />
                     <TextField
                       fullWidth
                       id="confirmPassword"
                       name="confirmPassword"
                       label="Confirm password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       value={formik.values.confirmPassword}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                       helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                      InputProps={{
+                        endAdornment:
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                      }}
                     />
                   </Box>
                 )
@@ -210,12 +240,21 @@ const Form: FC<Props> = ({handleClose }) => {
                       id="password"
                       name="password"
                       label="Password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       value={formik.values.password}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
                       error={formik.touched.password && Boolean(formik.errors.password)}
                       helperText={formik.touched.password && formik.errors.password}
+                      InputProps={{
+                        endAdornment:
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {showPassword ? <Visibility /> : <VisibilityOff />}
+                          </IconButton>
+                      }}
                     />
                   </Box>
                 )}
