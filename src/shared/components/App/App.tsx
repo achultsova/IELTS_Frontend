@@ -4,6 +4,7 @@ import Footer from '../Footer'
 import Header from '../Header'
 import Home from '../Home'
 import PageNotFound from '../PageNotFound'
+import InternalServer from '../InternalServer'
 
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path="*" element={<PageNotFound/>} />
+          <Route path='/500' element={<InternalServer/>}/>
         </Routes>
       </BrowserRouter>
       <Footer />
