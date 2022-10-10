@@ -66,7 +66,7 @@ const Form: FC<Props> = ({handleClose }) => {
     },
   })
 
-  const handleMouseDownPassword = (event: any) => {
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
   }
 
