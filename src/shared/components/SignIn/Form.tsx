@@ -8,6 +8,7 @@ import { instance } from '../../api/instance'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     handleClose: () => void
@@ -63,6 +64,7 @@ const Form: FC<Props> = ({handleClose }) => {
   const [authError, setAuthError] = useState(null)
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState(false)
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -87,7 +89,11 @@ const Form: FC<Props> = ({handleClose }) => {
         } catch (error) {
           let message: string
           if (error instanceof Error) message = error.message
-          else message = String(error)
+          else  {
+            message = String(error)
+            console.log(message)
+            navigate('/500')
+          }
         }
         
       } else if (loginSignup === 'login') {
