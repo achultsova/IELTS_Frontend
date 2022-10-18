@@ -1,6 +1,7 @@
-import React, {FC} from 'react'
+import React, {FC, useState} from 'react'
 import { Dialog } from '@mui/material'
 import Form from './Form'
+import FormSignUp from '../SignUp/FormSignUp'
 
 type Props ={
     open: boolean;
@@ -8,9 +9,15 @@ type Props ={
 }
 
 const ModalSignIn: FC<Props> = ({ open, handleClose }) => {
+  const [loginSignup, setLoginSignup] = useState('login')
   return (
     <Dialog open={open} onClose= {handleClose}>
-      <Form handleClose={handleClose} />
+      { loginSignup === 'login' ? (
+        <Form handleClose={handleClose} loginSignup={loginSignup} setLoginSignup={setLoginSignup}/>
+      ) : (
+        <FormSignUp handleClose={handleClose} loginSignup={loginSignup} setLoginSignup={setLoginSignup}/>
+      )}
+      
     </Dialog>
   )
 }
