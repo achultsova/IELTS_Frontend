@@ -53,6 +53,7 @@ const Header = () => {
       await instance.post('/logout', )
       authStorage.removeAccess()
       setUserData(null)
+      localStorage.clear()
     } catch (error) {
       let message: string
       if (error instanceof Error) message = error.message
@@ -166,7 +167,7 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          {userData ? (
+          {localStorage.getItem('isAuth') ? (
             <Box>
               <Button
                 ref={anchorRef}
@@ -174,7 +175,7 @@ const Header = () => {
                 aria-haspopup="true"
                 onClick={handleToggle}
               >
-                {userData.name}
+                {JSON.parse(localStorage.getItem('username'))}
               </Button>
               <Popper
                 open={openDropdown}
@@ -194,7 +195,7 @@ const Header = () => {
                     <Paper>
                       <ClickAwayListener onClickAway={handleCloseDropdown}>
                         <MenuList autoFocusItem={openDropdown} id="menu-list-grow">
-                          {userData.isAdmin === true ? (
+                          {localStorage.getItem('isAdmin') ? (
                             <MenuItem>Logout</MenuItem>
                           ) : (
                             <Box>
