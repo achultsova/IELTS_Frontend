@@ -10,7 +10,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import { authStorage } from '../../../utils/authStorage'
 import { useUserContext } from '../../context/userContext'
-
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
     handleClose: () => void;
@@ -41,6 +41,7 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
   const [authError, setAuthError] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
   const [userData, setUserData] = useUserContext()
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -65,6 +66,7 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
         handleClose()
         setAuthError(null)
       } catch (error) {
+        navigate('/500')
         let message: string
         if (error instanceof Error) message = error.message
         else {

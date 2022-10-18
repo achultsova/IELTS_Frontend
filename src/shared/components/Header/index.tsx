@@ -19,6 +19,7 @@ import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Grow from '@mui/material/Grow'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
+import { useNavigate } from 'react-router-dom'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
@@ -29,7 +30,7 @@ const Header = () => {
   const [userData, setUserData] = useUserContext()
   const [openDropdown, setOpenDropdown] = React.useState(false)
   const anchorRef = React.useRef<HTMLButtonElement>(null)
-
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget)
@@ -55,6 +56,7 @@ const Header = () => {
       setUserData(null)
       localStorage.clear()
     } catch (error) {
+      navigate('/500')
       let message: string
       if (error instanceof Error) message = error.message
       else {

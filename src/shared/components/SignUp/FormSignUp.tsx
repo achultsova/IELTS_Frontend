@@ -8,7 +8,7 @@ import { instance } from '../../api/instance'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
-// import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { authStorage } from '../../../utils/authStorage'
 
 type Props = {
@@ -65,7 +65,7 @@ const FormSignUp: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => 
   const [authError, setAuthError] = useState(null)
   const [showConfirm, setShowConfirm] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState(false)
-  // const navigate = useNavigate()
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -88,6 +88,7 @@ const FormSignUp: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => 
         await instance.post('/registration', user)
         setShowConfirm(true)
       } catch (error) {
+        navigate('/500')
         let message: string
         if (error instanceof Error) message = error.message
         else message = String(error)
