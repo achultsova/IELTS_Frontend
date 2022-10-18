@@ -6,6 +6,7 @@ export type User = {
   surname: string;
   email: string;
   isAdmin: boolean;
+  isActivated: boolean;
 };
 
 
@@ -16,13 +17,7 @@ type UserProvider = {
   children: ReactNode | Array<ReactNode>
 }
 export const UserProvider: FC<UserProvider>  = ({ children, user }) => {
-  const [userData, setUserData] = useState<User>({
-    id: null,
-    name: '',
-    surname: '',
-    email: '',
-    isAdmin: false
-  })
+  const [userData, setUserData] = useState<User>(null)
   useEffect(() => {
     if(user) {
       setUserData(user)

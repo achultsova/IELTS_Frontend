@@ -9,7 +9,8 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import { authStorage } from '../../../utils/authStorage'
-import FormSignUp from '../SignUp/FormSignUp'
+import { useUserContext } from '../../context/userContext'
+
 
 type Props = {
     handleClose: () => void;
@@ -39,6 +40,7 @@ const validationSchema = yup.object({
 const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
   const [authError, setAuthError] = useState(null)
   const [showPassword, setShowPassword] = useState(false)
+  const [userData, setUserData] = useUserContext()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -55,12 +57,16 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
         const res = await instance.post('/login', user)
         console.log('login')
         authStorage.setAccess(res.data.accessToken)
-        alert(JSON.stringify(res.data.user))
+        setUserData(res.data.user)
         handleClose()
+        setAuthError(null)
       } catch (error) {
         let message: string
         if (error instanceof Error) message = error.message
-        else message = String(error)
+        else {
+          message = String(error)
+          setAuthError(message)
+        }
       }
     }
   })
