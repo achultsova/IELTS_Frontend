@@ -56,6 +56,12 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
         const res = await instance.post('/login', user)
         authStorage.setAccess(res.data.accessToken)
         await setUserData(res.data.user)
+        localStorage.setItem('isAuth', JSON.stringify(true))
+        localStorage.setItem('username', JSON.stringify(res.data.user.name))
+        localStorage.setItem('userId', JSON.stringify(res.data.user.id))
+        if(res.data.user.isAdmin === true) {
+          localStorage.setItem('isAdmin', JSON.stringify(true))
+        }
         handleClose()
         setAuthError(null)
       } catch (error) {
