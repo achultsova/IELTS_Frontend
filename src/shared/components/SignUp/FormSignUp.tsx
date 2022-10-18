@@ -73,7 +73,6 @@ const FormSignUp: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => 
       email: '',
       password: '',
       confirmPassword: '',
-      // isAdmin: false
     },
     validationSchema: validationSchema,
     onSubmit:  async (data: RegistrationFormDataType) => {
@@ -84,7 +83,7 @@ const FormSignUp: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => 
           email: data.email,
           password: data.password,
           confirmPassword: data.confirmPassword,
-          // isAdmin: false
+          isAdmin: false
         }
         await instance.post('/registration', user)
         setShowConfirm(true)

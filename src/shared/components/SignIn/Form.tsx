@@ -48,16 +48,14 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
     },
     validationSchema: validationSchema,
     onSubmit:  async (data: LoginFormDataType) => {
-    
       try {
         const user = {
           email: data.email,
           password: data.password
         }
         const res = await instance.post('/login', user)
-        console.log('login')
         authStorage.setAccess(res.data.accessToken)
-        setUserData(res.data.user)
+        await setUserData(res.data.user)
         handleClose()
         setAuthError(null)
       } catch (error) {

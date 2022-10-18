@@ -11,6 +11,14 @@ import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import ModalSignIn from '../SignIn'
+import { useUserContext } from '../../context/userContext'
+import MenuList from '@mui/material/MenuList'
+import { instance } from '../../api/instance'
+import { authStorage } from '../../../utils/authStorage'
+import ClickAwayListener from '@mui/material/ClickAwayListener'
+import Grow from '@mui/material/Grow'
+import Paper from '@mui/material/Paper'
+import Popper from '@mui/material/Popper'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
@@ -18,6 +26,9 @@ const pages = ['Tests', 'Vocabulary', 'Topics']
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
   const [open, setOpen] = React.useState(false)
+  const [userData, setUserData] = useUserContext()
+  const [openDropdown, setOpenDropdown] = React.useState(false)
+  const anchorRef = React.useRef<HTMLButtonElement>(null)
 
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -36,6 +47,36 @@ const Header = () => {
     setOpen(false)
   }
 
+  const handleLogout = async () => {
+    try {
+      
+      await instance.post('/logout', )
+      authStorage.removeAccess()
+      setUserData(null)
+    } catch (error) {
+      let message: string
+      if (error instanceof Error) message = error.message
+      else {
+        message = String(error)
+      }
+    }
+  }
+
+  const handleToggle = () => {
+    setOpenDropdown((prevOpen) => !prevOpen)
+  }
+
+  const handleCloseDropdown = (event: Event | React.SyntheticEvent) => {
+    if (
+      anchorRef.current &&
+      anchorRef.current.contains(event.target as HTMLElement)
+    ) {
+      return
+    }
+    setOpenDropdown(false)
+  }
+
+  
   return (
     <AppBar position="static" style={{ background: '#393E59' }}>
       <Container maxWidth="xl">
@@ -125,8 +166,59 @@ const Header = () => {
               </Button>
             ))}
           </Box>
-          <Button color="inherit" onClick={handleClickOpen}>Sign in</Button>
-          <ModalSignIn open={open} handleClose={handleClose} />
+          {userData ? (
+            <Box>
+              <Button
+                ref={anchorRef}
+                aria-controls={openDropdown ? 'menu-list-grow' : undefined}
+                aria-haspopup="true"
+                onClick={handleToggle}
+              >
+                {userData.name}
+              </Button>
+              <Popper
+                open={openDropdown}
+                anchorEl={anchorRef.current}
+                role={undefined}
+                transition
+                disablePortal
+              >
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    style={{
+                      transformOrigin:
+                      placement === 'bottom' ? 'center top' : 'center bottom'
+                    }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={handleCloseDropdown}>
+                        <MenuList autoFocusItem={openDropdown} id="menu-list-grow">
+                          {userData.isAdmin === true ? (
+                            <MenuItem>Logout</MenuItem>
+                          ) : (
+                            <Box>
+                              <MenuItem>
+                                Profile
+                              </MenuItem>
+                              <MenuItem onClick={handleLogout}>
+                              Logout
+                              </MenuItem>
+                            </Box>
+                          )}
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </Box>
+          ): (
+            <Box>
+              <Button color="inherit" onClick={handleClickOpen}>Sign in</Button>
+              <ModalSignIn open={open} handleClose={handleClose} />
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

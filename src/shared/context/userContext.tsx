@@ -7,6 +7,7 @@ export type User = {
   email: string;
   isAdmin: boolean;
   isActivated: boolean;
+  isAuth: boolean;
 };
 
 
