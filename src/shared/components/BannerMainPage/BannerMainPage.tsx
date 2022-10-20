@@ -10,7 +10,7 @@ const BannerMainPage: FC = () => {
       width: 'auto',
       ml: 3,
       mr: 3,
-      mb: 3,
+      mb: 5,
       [theme.breakpoints.up(1100 + 4 * 3 * 2)]: {
         maxWidth: 'xl',
       },
@@ -23,7 +23,8 @@ const BannerMainPage: FC = () => {
           <Box sx={{
             [theme.breakpoints.up('md')]: {
               paddingRight: 0
-            }}}>
+            }
+          }}>
             <Typography variant='h1' color='black' sx={{py: 5}}>
                 IELTS
             </Typography>

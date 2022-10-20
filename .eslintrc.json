@@ -8,8 +8,7 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended"
     ],
-    "overrides": [
-    ],
+    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -29,15 +28,6 @@
             "error",
             "single"
         ],
-        "react/function-component-definition": [
-            2,
-            {
-              "namedComponents": "arrow-function",
-              "unnamedComponents": "arrow-function"
-            }
-          ],
-          "import/prefer-default-export": "off",
-          "react/require-default-props": "off",
         "semi": [
             "error",
             "never"
