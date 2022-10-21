@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import theme from '../../theme'
 import { ReactComponent as Arrow } from '../../assets/icons/arrow11.svg'
+import { ReactComponent as Done } from '../../assets/icons/group.svg'
 
 export type CardType = {
   id: number;
@@ -56,8 +57,12 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
           <Arrow />
         </Button>
       </Box>
-      <Box sx={{ width: theme.spacing(8) }}>
-
+      <Box sx={{ width: theme.spacing(8), pt: theme.spacing(8), }}>
+        {isCompleted === true ? (
+          <Done />
+        ) : (
+          null
+        )}
       </Box>
     </Box>
   )
