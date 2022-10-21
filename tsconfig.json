@@ -23,7 +23,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "**/*.ts", "**/*.tsx",
+    "**/*.ts", "**/*.tsx", "src/shared/components/Profile",
   ],
   "exclude": ["node_modules"]
 }

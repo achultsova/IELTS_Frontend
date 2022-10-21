@@ -2,6 +2,15 @@ import { createTheme } from '@mui/material/styles'
 import { green, grey, red } from '@mui/material/colors'
 
 const rawTheme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 577,
+      sm: 769,
+      md: 1025,
+      lg: 1367,
+      xl: 1921,
+    },
+  },
   palette: {
     primary: {
       light: '#F0F2F2',
@@ -34,8 +43,34 @@ const rawTheme = createTheme({
     fontWeightRegular: 400, // Work Sans
     fontWeightMedium: 700, // Roboto Condensed
   },
-  spacing: 4,
+  spacing: [0, 2, 3, 5, 7, 11, 15, 16, 24, 30, 36, 40, 54, 69, 80, 81, 122, 155, 183, 241,
+    275, 296, 335, 412],
 })
+
+// 0: 0
+// 1: 2
+// 2: 3
+// 3: 5
+// 4: 7
+// 5: 11
+// 6: 15
+// 7: 16
+// 8: 24
+// 9: 30
+// 10: 36
+// 11: 40
+// 12: 54
+// 13: 69
+// 14: 80
+// 15: 81
+// 16: 122
+// 17: 155
+// 18: 183
+// 19: 241
+// 20: 275
+// 21: 296
+// 22: 335
+// 23: 412
 
 const fontHeader = {
   color: rawTheme.palette.text.primary,
@@ -61,17 +96,17 @@ const theme = {
       ...rawTheme.typography.h1,
       ...fontHeader,
       letterSpacing: 0,
-      fontSize: 60,
+      fontSize: 81,
     },
     h2: {
       ...rawTheme.typography.h2,
       ...fontHeader,
-      fontSize: 48,
+      fontSize: 54,
     },
     h3: {
       ...rawTheme.typography.h3,
       ...fontHeader,
-      fontSize: 42,
+      fontSize: 46,
     },
     h4: {
       ...rawTheme.typography.h4,
@@ -80,17 +115,17 @@ const theme = {
     },
     h5: {
       ...rawTheme.typography.h5,
-      fontSize: 20,
+      fontSize: 24,
       fontWeight: rawTheme.typography.fontWeightLight,
     },
     h6: {
       ...rawTheme.typography.h6,
       ...fontHeader,
-      fontSize: 18,
+      fontSize: 14,
     },
     subtitle1: {
       ...rawTheme.typography.subtitle1,
-      fontSize: 18,
+      fontSize: 24,
     },
     body1: {
       ...rawTheme.typography.body2,
@@ -99,7 +134,7 @@ const theme = {
     },
     body2: {
       ...rawTheme.typography.body1,
-      fontSize: 14,
+      fontSize: 12,
     },
   },
 }
