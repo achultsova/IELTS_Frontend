@@ -3,7 +3,16 @@ import { Box, Typography, Button } from '@mui/material'
 import theme from '../../theme'
 import { ReactComponent as Arrow } from '../../assets/icons/arrow11.svg'
 
-const TestCard = () => {
+export type CardType = {
+  id: number;
+  typeReading: string | null;
+  testType: string;
+  number: string;
+  isCompleted: boolean;
+  isFavorite: boolean
+}
+
+const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted, isFavorite }) => {
   return (
     <Box sx={{
       display: 'flex',
@@ -24,14 +33,14 @@ const TestCard = () => {
         width: '100%',
         alignItems: 'center',
       }}>
-        <Typography color={'white'} sx={{ pb: theme.spacing(8) }}>
-          Academic
+        <Typography variant='body2' color={'white'} sx={{ mb: theme.spacing(8), height: theme.spacing(1) }}>
+          {typeReading}
         </Typography>
-        <Typography color={'white'} sx={{ pb: theme.spacing(8) }}>
-          READING
+        <Typography variant='h5' color={'white'} sx={{ pb: theme.spacing(8) }}>
+          {testType}
         </Typography>
         <Typography color={'white'} sx={{ pb: theme.spacing(12) }}>
-          Test №12
+          {number}
         </Typography>
         <Button sx={{
           color: 'white',
@@ -42,7 +51,7 @@ const TestCard = () => {
           px: theme.spacing(4)
         }}>
           <Typography variant='body2' sx={{ pr: theme.spacing(8) }}>
-            Go to test
+            {isCompleted ? 'Results' : 'Go to test'}
           </Typography>
           <Arrow />
         </Button>
