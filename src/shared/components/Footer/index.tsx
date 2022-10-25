@@ -7,44 +7,44 @@ import Link from '@mui/material/Link'
 import theme from '../../theme'
 
 const Copyright = () => {
-  return (
-    <Typography variant="body2" sx={{color: theme.palette.primary.light}}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://www.ielts.org/">
-        IELTS
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  )
+    return (
+        <Typography variant="body2" sx={{ color: theme.palette.primary.light }}>
+            {'Copyright © '}
+            <Link color="inherit" href="https://www.ielts.org/">
+                IELTS
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+        </Typography>
+    )
 }
 
 const Footer = () => {
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}
-    >
-      <CssBaseline />
-      <Box
-        component="footer"
-        sx={{
-          py: 3,
-          mt: 'auto',
-          backgroundColor: theme.palette.primary.dark
-        }}
-      >
-        <Container maxWidth="xl">
-          <Typography variant="body1" sx={{color: theme.palette.primary.light}}>
-            IELTS preparing app
-          </Typography>
-          <Copyright />
-        </Container>
-      </Box>
-    </Box>
-  )
+    return (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+            }}
+        >
+            <CssBaseline />
+            <Box
+                component="footer"
+                sx={{
+                    py: 3,
+                    mt: 'auto',
+                    backgroundColor: theme.palette.primary.dark
+                }}
+            >
+                <Container maxWidth="xl">
+                    <Typography variant="body1" sx={{ color: theme.palette.primary.light }}>
+                        IELTS preparing app
+                    </Typography>
+                    <Copyright />
+                </Container>
+            </Box>
+        </Box>
+    )
 }
 
 export default Footer

@@ -7,19 +7,17 @@ import { adaptive } from '../../../utils/adaptive'
 
 export type CardType = {
     id: number;
-    typeReading: string | null;
-    testType: string;
-    number: string;
-    isCompleted: boolean;
-    isFavorite: boolean
+    topicName: string;
+    isRead: boolean;
+    isFavorite: boolean;
+    category: string
 }
 
-const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted, isFavorite }) => {
+const TopicCard: FC<CardType> = ({ id, topicName, isRead, category, isFavorite }) => {
     return (
         <Box sx={{
             display: 'flex',
-            border: '2px solid',
-            borderColor: theme.palette.primary.light,
+            border: '2px solid white',
             [theme.breakpoints.up('xs')]: {
                 width: '100%',
                 flexDirection: 'row',
@@ -28,7 +26,8 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
             },
             [theme.breakpoints.down('xs')]: {
                 width: '190px',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                justifyContent: 'space-between'
             },
             height: '250px',
             [theme.breakpoints.up('md')]: {
@@ -47,17 +46,14 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
                     alignItems: 'center',
                 },
             }}>
-                <Typography variant='body2' color={'white'} sx={{ mb: theme.spacing(8), height: theme.spacing(1) }}>
-                    {typeReading}
-                </Typography>
                 <Typography variant='h5' color={'white'} sx={{ pb: theme.spacing(8), display: { xs: 'flex', sm: 'none' } }}>
-                    {testType}
+                    {topicName}
                 </Typography>
                 <Typography variant='h3' color={'white'} sx={{ fontSize: adaptive(30, 54, 577, 1921), display: { xs: 'none', sm: 'flex' } }}>
-                    {testType}
+                    {topicName}
                 </Typography>
                 <Typography color={'white'} sx={{ pb: theme.spacing(12) }}>
-                    {number}
+                    {category}
                 </Typography>
             </Box>
             <Button sx={{
@@ -70,24 +66,18 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
                     height: theme.spacing(18)
                 },
                 [theme.breakpoints.down('xs')]: {
-                    mx: theme.spacing(10)
+                    mx: theme.spacing(10),
+                    mb: theme.spacing(8)
                 },
                 alignItems: 'center',
                 px: theme.spacing(4)
             }}>
                 <Typography variant='body2'>
-                    {isCompleted ? 'Results' : 'Go to test'}
+                    {isRead ? 'READ AGAIN' : 'READ'}
                 </Typography>
             </Button>
-            {/* <Box sx={{ width: theme.spacing(8), pt: theme.spacing(8), }}>
-                {isCompleted === true ? (
-                    <Done />
-                ) : (
-                    null
-                )}
-            </Box> */}
         </Box>
     )
 }
 
-export default TestCard
+export default TopicCard

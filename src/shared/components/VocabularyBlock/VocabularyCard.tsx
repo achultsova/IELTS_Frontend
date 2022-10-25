@@ -7,19 +7,18 @@ import { adaptive } from '../../../utils/adaptive'
 
 export type CardType = {
     id: number;
-    typeReading: string | null;
-    testType: string;
-    number: string;
-    isCompleted: boolean;
-    isFavorite: boolean
+    vocName: string;
+    isLearned: boolean;
+    isFavorite: boolean;
+    level: string
 }
 
-const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted, isFavorite }) => {
+const VocabularyCard: FC<CardType> = ({ id, vocName, isLearned, level, isFavorite }) => {
     return (
         <Box sx={{
             display: 'flex',
             border: '2px solid',
-            borderColor: theme.palette.primary.light,
+            borderColor: theme.palette.primary.dark,
             [theme.breakpoints.up('xs')]: {
                 width: '100%',
                 flexDirection: 'row',
@@ -28,7 +27,8 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
             },
             [theme.breakpoints.down('xs')]: {
                 width: '190px',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                justifyContent: 'space-between'
             },
             height: '250px',
             [theme.breakpoints.up('md')]: {
@@ -47,47 +47,39 @@ const TestCard: FC<CardType> = ({ id, typeReading, testType, number, isCompleted
                     alignItems: 'center',
                 },
             }}>
-                <Typography variant='body2' color={'white'} sx={{ mb: theme.spacing(8), height: theme.spacing(1) }}>
-                    {typeReading}
+                <Typography variant='h5' color={theme.palette.primary.dark} sx={{ pb: theme.spacing(8), display: { xs: 'flex', sm: 'none' } }}>
+                    {vocName}
                 </Typography>
-                <Typography variant='h5' color={'white'} sx={{ pb: theme.spacing(8), display: { xs: 'flex', sm: 'none' } }}>
-                    {testType}
+                <Typography variant='h3' color={theme.palette.primary.dark} sx={{ fontSize: adaptive(30, 54, 577, 1921), display: { xs: 'none', sm: 'flex' } }}>
+                    {vocName}
                 </Typography>
-                <Typography variant='h3' color={'white'} sx={{ fontSize: adaptive(30, 54, 577, 1921), display: { xs: 'none', sm: 'flex' } }}>
-                    {testType}
-                </Typography>
-                <Typography color={'white'} sx={{ pb: theme.spacing(12) }}>
-                    {number}
+                <Typography color={theme.palette.primary.dark} sx={{ pb: theme.spacing(12) }}>
+                    {level}
                 </Typography>
             </Box>
             <Button sx={{
-                color: 'white',
+                color: theme.palette.primary.dark,
                 display: 'flex',
-                border: '1px solid white',
+                border: '1px solid',
+                borderColor: theme.palette.primary.dark,
                 [theme.breakpoints.up('xs')]: {
                     borderRadius: '50%',
                     minWidth: theme.spacing(18),
                     height: theme.spacing(18)
                 },
                 [theme.breakpoints.down('xs')]: {
-                    mx: theme.spacing(10)
+                    mx: theme.spacing(10),
+                    mb: theme.spacing(8)
                 },
                 alignItems: 'center',
                 px: theme.spacing(4)
             }}>
                 <Typography variant='body2'>
-                    {isCompleted ? 'Results' : 'Go to test'}
+                    {isLearned ? 'REPEAT' : 'LEARN'}
                 </Typography>
             </Button>
-            {/* <Box sx={{ width: theme.spacing(8), pt: theme.spacing(8), }}>
-                {isCompleted === true ? (
-                    <Done />
-                ) : (
-                    null
-                )}
-            </Box> */}
         </Box>
     )
 }
 
-export default TestCard
+export default VocabularyCard
