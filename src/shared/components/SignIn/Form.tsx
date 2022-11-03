@@ -10,6 +10,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import { authStorage } from '../../../utils/authStorage'
 import { useUserContext } from '../../context/userContext'
+import { Link as LinkTo } from 'react-router-dom'
+import theme from '../../theme'
 
 type Props = {
     handleClose: () => void;
@@ -86,74 +88,75 @@ const Form: FC<Props> = ({ handleClose, loginSignup, setLoginSignup }) => {
         setLoginSignup('signup')
     }
     return (
-        <Box px={3} sx={{ width: '300px' }}>
-            <Box>
-                <DialogTitle>
-                    SIGN IN
-                </DialogTitle>
-                <form style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    padding: '16px',
-                }} onSubmit={formik.handleSubmit}>
-                    <Box>
-                        <TextField
-                            fullWidth
-                            id="email"
-                            name="email"
-                            label="Email"
-                            value={formik.values.email}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.email && Boolean(formik.errors.email)}
-                            helperText={formik.touched.email && formik.errors.email}
-                            sx={{ paddingBottom: '16px' }}
-                        />
-                        <TextField
-                            fullWidth
-                            id="password"
-                            name="password"
-                            label="Password"
-                            type={showPassword ? 'text' : 'password'}
-                            value={formik.values.password}
-                            onChange={formik.handleChange}
-                            onBlur={formik.handleBlur}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
-                            InputProps={{
-                                endAdornment:
-                                    <IconButton
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                    >
-                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                            }}
-                        />
-                    </Box>
-                    <Box py={3}>
-                        <Typography>
-                            <>
-                                Don&lsquo;t have an account yet?{' '}
-                                <Link onClick={onChange} sx={{ cursor: 'pointer' }}>
-                                    Sign up
-                                </Link>
-                            </>
-                        </Typography>
-                    </Box>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
-                        <Button variant="outlined" onClick={handleClose}>
-                            Cancel
-                        </Button>
-                        <Button color="primary" type="submit" variant="contained">
-                            Submit
-                        </Button>
-                    </div>
-                </form>
-            </Box>
-        </Box>
+        <Box sx={{ width: '300px' }}>
+            <DialogTitle>
+                SIGN IN
+            </DialogTitle>
+            <form style={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingLeft: '32px',
+                paddingRight: '32px',
+                paddingBottom: '32px'
+            }} onSubmit={formik.handleSubmit}>
+                <Typography sx={{ pb: theme.spacing(7) }}>
+                    Don&lsquo;t have an account yet?{' '}
+                    <Link onClick={onChange} sx={{ cursor: 'pointer' }}>
+                        Sign up
+                    </Link>
+                </Typography>
+                <Box>
+                    <TextField
+                        fullWidth
+                        id="email"
+                        name="email"
+                        label="Email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.email && Boolean(formik.errors.email)}
+                        helperText={formik.touched.email && formik.errors.email}
+                        sx={{ paddingBottom: '16px' }}
+                    />
+                    <TextField
+                        fullWidth
+                        id="password"
+                        name="password"
+                        label="Password"
+                        type={showPassword ? 'text' : 'password'}
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.password && Boolean(formik.errors.password)}
+                        helperText={formik.touched.password && formik.errors.password}
+                        InputProps={{
+                            endAdornment:
+                                <IconButton
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                >
+                                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                                </IconButton>
+                        }}
+                    />
+                </Box>
+                <Box py={3} sx={{ alignSelf: 'end' }}>
+                    <LinkTo onClick={handleClose} to={'/forgotPassword'}>
+                        Forgot password?
+                    </LinkTo>
+                </Box>
+                <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%' }}>
+                    <Button variant="outlined" onClick={handleClose}>
+                        Cancel
+                    </Button>
+                    <Button color="primary" type="submit" variant="contained">
+                        Submit
+                    </Button>
+                </div>
+            </form>
+        </Box >
     )
 }
 
