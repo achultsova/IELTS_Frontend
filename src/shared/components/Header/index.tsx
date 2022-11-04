@@ -10,7 +10,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
-import ModalSignIn from '../SignIn'
 import { useUserContext } from '../../context/userContext'
 import MenuList from '@mui/material/MenuList'
 import { instance } from '../../api/instance'
@@ -19,16 +18,17 @@ import ClickAwayListener from '@mui/material/ClickAwayListener'
 import Grow from '@mui/material/Grow'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
+import { useNavigate } from 'react-router-dom'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
-    const [open, setOpen] = React.useState(false)
     const [userData, setUserData] = useUserContext()
     const [openDropdown, setOpenDropdown] = React.useState(false)
     const anchorRef = React.useRef<HTMLButtonElement>(null)
+    const navigate = useNavigate()
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget)
@@ -38,12 +38,8 @@ const Header = () => {
         setAnchorElNav(null)
     }
 
-    const handleClickOpen = () => {
-        setOpen(true)
-    }
-
-    const handleClose = () => {
-        setOpen(false)
+    const goLogin = () => {
+        navigate('/signin')
     }
 
     const handleLogout = async () => {
@@ -214,10 +210,7 @@ const Header = () => {
                             </Popper>
                         </Box>
                     ) : (
-                        <Box>
-                            <Button color="inherit" onClick={handleClickOpen}>Sign in</Button>
-                            <ModalSignIn open={open} handleClose={handleClose} />
-                        </Box>
+                        <Button color="inherit" onClick={goLogin}>Sign in</Button>
                     )}
                 </Toolbar>
             </Container>
