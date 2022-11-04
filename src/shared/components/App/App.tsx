@@ -8,6 +8,8 @@ import InternalServer from '../InternalServer'
 import { UserProvider, User } from '../../context/userContext'
 import ForgotPassword from '../ForgotPassword'
 import SetNewPassword from '../SetNewPassword'
+import SignIn from '../SignIn'
+import SignUp from '../SignUp'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
@@ -22,6 +24,8 @@ const App = () => {
                         <Route path='/500' element={<InternalServer />} />
                         <Route path='forgotPassword' element={<ForgotPassword />} />
                         <Route path='setNewPassword/:id' element={<SetNewPassword />} />
+                        <Route path='/signin' element={<SignIn />} />
+                        <Route path='/signup' element={<SignUp />} />
                     </Routes>
                     <Footer />
                 </BrowserRouter>

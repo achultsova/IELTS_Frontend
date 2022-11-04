@@ -11,7 +11,7 @@ const Timer = ({ max }) => {
             setTimeout(() => setCounter(counter - 1), 1000)
         }
         if (counter === 0) {
-            return navigate('/login')
+            return navigate('/signin')
         }
     }, [counter])
 

@@ -44,8 +44,8 @@ const ForgotPassword: FC = () => {
         }
     })
 
-    const goHome = () => {
-        navigate('/')
+    const goSignin = () => {
+        navigate('/signin')
     }
     return (
         <Box sx={{
@@ -89,10 +89,10 @@ const ForgotPassword: FC = () => {
                             onBlur={formik.handleBlur}
                             error={formik.touched.email && Boolean(formik.errors.email)}
                             helperText={formik.touched.email && formik.errors.email}
-                            sx={{ paddingBottom: '16px', width: theme.spacing(20) }}
+                            sx={{ paddingBottom: theme.spacing(7), width: theme.spacing(20) }}
                         />
                         <Box>
-                            <Button onClick={goHome} variant='outlined' sx={{ mr: theme.spacing(5) }}>
+                            <Button onClick={goSignin} variant='outlined' sx={{ mr: theme.spacing(5) }}>
                                 Cansel
                             </Button>
                             <Button color="primary" type="submit" variant="contained">
