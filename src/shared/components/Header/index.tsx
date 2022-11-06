@@ -19,6 +19,7 @@ import Grow from '@mui/material/Grow'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
@@ -195,7 +196,7 @@ const Header = () => {
                                                     ) : (
                                                         <Box>
                                                             <MenuItem>
-                                                                Profile
+                                                                <Link to={'/profile'}>Profile</Link>
                                                             </MenuItem>
                                                             <MenuItem onClick={handleLogout}>
                                                                 Logout
