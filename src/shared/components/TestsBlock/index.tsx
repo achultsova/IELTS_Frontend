@@ -6,7 +6,7 @@ import TestCard from './TestCard'
 
 const data = [
     {
-        id: 33453,
+        id: 33451113,
         typeReading: 'General',
         testType: 'READING',
         number: 'Test №4',
@@ -14,7 +14,7 @@ const data = [
         isFavorite: false
     },
     {
-        id: 33453,
+        id: 336463363,
         typeReading: 'General',
         testType: 'READING',
         number: 'Test №4',
@@ -22,7 +22,7 @@ const data = [
         isFavorite: false
     },
     {
-        id: 33453,
+        id: 3344253,
         typeReading: 'General',
         testType: 'READING',
         number: 'Test №4',
@@ -30,7 +30,7 @@ const data = [
         isFavorite: false
     },
     {
-        id: 33453,
+        id: 3653453,
         typeReading: 'General',
         testType: 'READING',
         number: 'Test №4',
@@ -38,7 +38,7 @@ const data = [
         isFavorite: false
     },
     {
-        id: 33453,
+        id: 33653573,
         typeReading: 'General',
         testType: 'READING',
         number: 'Test №4',
