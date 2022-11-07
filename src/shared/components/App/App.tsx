@@ -10,12 +10,16 @@ import ForgotPassword from '../ForgotPassword'
 import SetNewPassword from '../SetNewPassword'
 import SignIn from '../SignIn'
 import SignUp from '../SignUp'
+import Profile from '../Profile'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
     return (
         <div className="App">
             <UserProvider user={user}>
+                <ToastContainer />
                 <BrowserRouter>
                     <Header />
                     <Routes>
@@ -26,6 +30,7 @@ const App = () => {
                         <Route path='setNewPassword/:id' element={<SetNewPassword />} />
                         <Route path='/signin' element={<SignIn />} />
                         <Route path='/signup' element={<SignUp />} />
+                        <Route path={'/profile'} element={<Profile />} />
                     </Routes>
                     <Footer />
                 </BrowserRouter>

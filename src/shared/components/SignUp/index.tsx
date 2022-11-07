@@ -84,7 +84,10 @@ const SignUp: FC = () => {
                 setShowConfirm(true)
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    navigate('/500')
+                }
                 else message = String(error)
             }
         }

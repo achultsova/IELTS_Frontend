@@ -19,6 +19,7 @@ import Grow from '@mui/material/Grow'
 import Paper from '@mui/material/Paper'
 import Popper from '@mui/material/Popper'
 import { useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const pages = ['Tests', 'Vocabulary', 'Topics']
 
@@ -48,6 +49,7 @@ const Header = () => {
             authStorage.removeAccess()
             setUserData(null)
             localStorage.clear()
+            navigate('/')
         } catch (error) {
             let message: string
             if (error instanceof Error) message = error.message
@@ -195,7 +197,7 @@ const Header = () => {
                                                     ) : (
                                                         <Box>
                                                             <MenuItem>
-                                                                Profile
+                                                                <Link to={'/profile'} style={{ textDecoration: 'none', color: 'black' }}>Profile</Link>
                                                             </MenuItem>
                                                             <MenuItem onClick={handleLogout}>
                                                                 Logout
