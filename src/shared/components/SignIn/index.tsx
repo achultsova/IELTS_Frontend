@@ -56,6 +56,8 @@ const SignIn: FC = () => {
                 localStorage.setItem('isAuth', JSON.stringify(true))
                 localStorage.setItem('username', JSON.stringify(res.data.user.name))
                 localStorage.setItem('userId', JSON.stringify(res.data.user.id))
+                localStorage.setItem('email', JSON.stringify(res.data.user.email))
+                localStorage.setItem('surname', JSON.stringify(res.data.user.surname))
                 if (res.data.user.isAdmin === true) {
                     localStorage.setItem('isAdmin', JSON.stringify(true))
                 }
@@ -63,7 +65,10 @@ const SignIn: FC = () => {
                 navigate('/')
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    navigate('/500')
+                }
                 else {
                     message = String(error)
                     setAuthError(message)

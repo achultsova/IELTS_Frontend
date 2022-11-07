@@ -5,13 +5,13 @@ import * as yup from 'yup'
 import { instance } from '../../api/instance'
 import TextField from '@mui/material/TextField'
 import theme from '../../theme'
+import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 
-
 type DataType = {
-    name: string;
-    surname: string;
-    email: string;
+    name?: string;
+    surname?: string;
+    email?: string;
 }
 
 const validationSchema = yup.object({
@@ -34,29 +34,62 @@ const validationSchema = yup.object({
         .required('Please enter your surname'),
 })
 
-const ChangeInfo = () => {
+const ChangeInfo: FC = () => {
     const [completed, setCompleted] = useState(false)
-    const [profile, setProfile] = useState()
     const navigate = useNavigate()
+    const [userData, setUserData] = React.useState<DataType>({
+        email: '',
+        name: '',
+        surname: ''
+    })
+
+    const notify = (message) => toast.success(message, {
+        position: 'top-center',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+    })
+
+
+    useEffect(() => {
+        const email = JSON.parse(localStorage.getItem('email') || '[]')
+        const name = JSON.parse(localStorage.getItem('username') || '[]')
+        const surname = JSON.parse(localStorage.getItem('surname') || '[]')
+        setUserData({
+            email: email,
+            name: name,
+            surname: surname
+        })
+    }, [userData])
+
     const formik = useFormik({
         initialValues: {
-            email: 'email@gmail.com',
-            name: '',
-            surname: '',
+            email: userData.email,
+            name: userData.name,
+            surname: userData.surname,
         },
         validationSchema: validationSchema,
         onSubmit: async (data: DataType) => {
             try {
                 const user = {
-                    email: 'email@gmail.com',
+                    email: userData.email,
                     name: data.name,
                     surname: data.surname,
                 }
                 const res = await instance.post('/changeInfo', user)
-                setCompleted(true)
+                notify('Your personal data successfully changed')
+                localStorage.setItem('username', JSON.stringify(res.data.user.name))
+                localStorage.setItem('surname', JSON.stringify(res.data.user.surname))
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    navigate('/500')
+                }
                 else {
                     message = String(error)
                 }
@@ -64,29 +97,19 @@ const ChangeInfo = () => {
         }
     })
 
-    useEffect(() => {
-        const userId = JSON.parse(localStorage.getItem('userId') || '[]')
-        if (userId === null) {
-            navigate('/500')
-        } else {
-            const getProfile = async () => {
-                const data = {
-                    id: userId
-                }
-                const response = await instance.post('/getProfile', data)
-                setProfile(response.data)
-            }
-            getProfile()
-        }
-    }, [])
-
     return (
         <Box sx={{
             minHeight: '100vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            [theme.breakpoints.up('md')]: {
+                px: theme.spacing(14)
+            },
+            [theme.breakpoints.down('md')]: {
+                px: theme.spacing(12)
+            },
         }}>
             <Typography variant='h2' sx={{ pb: theme.spacing(8) }}>
                 Change user info
@@ -101,9 +124,9 @@ const ChangeInfo = () => {
                     fullWidth
                     id="email"
                     name="email"
-                    label="Email"
-                    placeholder='email@gmail.com'
-                    value={'email@gmail.com'}
+                    label={userData.email}
+                    placeholder={userData.email}
+                    value={userData.email}
                     disabled
                     sx={{ paddingBottom: theme.spacing(7), width: theme.spacing(20) }}
                 />
@@ -112,6 +135,7 @@ const ChangeInfo = () => {
                     id="name"
                     name="name"
                     label="name"
+                    placeholder={userData.name}
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -124,6 +148,7 @@ const ChangeInfo = () => {
                     id="surname"
                     name="surname"
                     label="Surname"
+                    placeholder={userData.surname}
                     value={formik.values.surname}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
@@ -137,7 +162,6 @@ const ChangeInfo = () => {
                     </Button>
                 </Box>
             </form>
-
         </Box >
     )
 }

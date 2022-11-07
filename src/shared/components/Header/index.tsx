@@ -49,6 +49,7 @@ const Header = () => {
             authStorage.removeAccess()
             setUserData(null)
             localStorage.clear()
+            navigate('/')
         } catch (error) {
             let message: string
             if (error instanceof Error) message = error.message
@@ -196,7 +197,7 @@ const Header = () => {
                                                     ) : (
                                                         <Box>
                                                             <MenuItem>
-                                                                <Link to={'/profile'}>Profile</Link>
+                                                                <Link to={'/profile'} style={{ textDecoration: 'none', color: 'black' }}>Profile</Link>
                                                             </MenuItem>
                                                             <MenuItem onClick={handleLogout}>
                                                                 Logout

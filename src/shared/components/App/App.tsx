@@ -11,12 +11,15 @@ import SetNewPassword from '../SetNewPassword'
 import SignIn from '../SignIn'
 import SignUp from '../SignUp'
 import Profile from '../Profile'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
     return (
         <div className="App">
             <UserProvider user={user}>
+                <ToastContainer />
                 <BrowserRouter>
                     <Header />
                     <Routes>

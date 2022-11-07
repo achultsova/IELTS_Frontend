@@ -17,6 +17,10 @@ type LoginFormDataType = {
     confirmPassword?: string;
 }
 
+window.onunload = function () {
+    return confirm('Вы хотите покинуть сайт?')
+}
+
 const validationSchema = yup.object({
     password: yup
         .string()
