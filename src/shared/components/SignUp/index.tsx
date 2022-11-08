@@ -88,7 +88,10 @@ const SignUp: FC = () => {
                     message = error.message
                     navigate('/500')
                 }
-                else message = String(error)
+                else {
+                    message = String(error)
+                    console.log(message)
+                }
             }
         }
     })

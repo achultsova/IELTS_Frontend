@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import * as yup from 'yup'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import { Link, Typography, Box } from '@mui/material'
+import { Typography, Box } from '@mui/material'
 import { instance } from '../../api/instance'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
@@ -12,6 +12,7 @@ import { authStorage } from '../../../utils/authStorage'
 import { useUserContext } from '../../context/userContext'
 import { Link as LinkTo, useNavigate } from 'react-router-dom'
 import theme from '../../theme'
+import notifyError from '../../../utils/notifyError'
 
 
 type LoginFormDataType = {
@@ -34,7 +35,6 @@ const validationSchema = yup.object({
 })
 
 const SignIn: FC = () => {
-    const [authError, setAuthError] = useState(null)
     const [showPassword, setShowPassword] = useState(false)
     const [userData, setUserData] = useUserContext()
     const navigate = useNavigate()
@@ -61,17 +61,17 @@ const SignIn: FC = () => {
                 if (res.data.user.isAdmin === true) {
                     localStorage.setItem('isAdmin', JSON.stringify(true))
                 }
-                setAuthError(null)
                 navigate('/')
             } catch (error) {
                 let message: string
                 if (error instanceof Error) {
                     message = error.message
                     navigate('/500')
+                    notifyError(message)
                 }
                 else {
                     message = String(error)
-                    setAuthError(message)
+                    notifyError(message)
                 }
             }
         }

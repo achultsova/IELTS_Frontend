@@ -8,7 +8,9 @@ import theme from '../../theme'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
-import { useParams } from 'react-router-dom'
+import notifyError from '../../../utils/notifyError'
+import notify from '../../../utils/notify'
+import { useNavigate } from 'react-router-dom'
 
 type LoginFormDataType = {
     id?: string;
@@ -39,11 +41,11 @@ const validationSchema = yup.object({
         .required('Please confirm your password')
 })
 
-const ChangePassword = () => {
+const ChangePassword: FC = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [showOldPassword, setShowOldPassword] = useState(false)
-    const [completed, setCompleted] = useState(false)
-    const { id } = useParams<{ id?: string }>()
+    const navigate = useNavigate()
+
     const formik = useFormik({
         initialValues: {
             oldPassword: '',
@@ -55,15 +57,22 @@ const ChangePassword = () => {
             try {
                 const user = {
                     password: data.password,
-                    id: id
+                    oldPassword: data.oldPassword,
                 }
-                const res = await instance.post(`/setNewPassword/${id}`, user)
-                setCompleted(true)
+                const id = JSON.parse(localStorage.getItem('userId') || '[]')
+                console.log(id)
+                await instance.post(`/changePassword/${id}`, user)
+                notify('Your password has been successfully changed!')
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    notifyError(message)
+                    navigate('/500')
+                }
                 else {
                     message = String(error)
+                    console.log(message)
                 }
             }
         }

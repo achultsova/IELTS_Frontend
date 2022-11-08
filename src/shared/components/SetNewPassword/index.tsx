@@ -10,6 +10,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import IconButton from '@mui/material/IconButton'
 import { useParams } from 'react-router-dom'
 import Timer from '../Timer/Timer'
+import { useNavigate } from 'react-router-dom'
 
 type LoginFormDataType = {
     id?: string;
@@ -39,6 +40,8 @@ const SetNewPassword: FC = () => {
     const [showPassword, setShowPassword] = useState(false)
     const [completed, setCompleted] = useState(false)
     const { id } = useParams<{ id?: string }>()
+    const navigate = useNavigate()
+
     const formik = useFormik({
         initialValues: {
             password: '',
@@ -51,13 +54,17 @@ const SetNewPassword: FC = () => {
                     password: data.password,
                     id: id
                 }
-                const res = await instance.post(`/setNewPassword/${id}`, user)
+                await instance.post(`/setNewPassword/${id}`, user)
                 setCompleted(true)
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    navigate('/500')
+                }
                 else {
                     message = String(error)
+                    console.log(message)
                 }
             }
         }

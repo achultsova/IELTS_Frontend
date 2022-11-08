@@ -32,13 +32,17 @@ const ForgotPassword: FC = () => {
                 const user = {
                     email: data.email,
                 }
-                const res = await instance.post('/forgotPassword', user)
+                await instance.post('/forgotPassword', user)
                 setCompleted(true)
             } catch (error) {
                 let message: string
-                if (error instanceof Error) message = error.message
+                if (error instanceof Error) {
+                    message = error.message
+                    navigate('/500')
+                }
                 else {
                     message = String(error)
+                    console.log(message)
                 }
             }
         }
