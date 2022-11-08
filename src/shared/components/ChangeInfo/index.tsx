@@ -1,11 +1,12 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Box, Typography, Button } from '@mui/material'
 import { useFormik } from 'formik'
 import * as yup from 'yup'
 import { instance } from '../../api/instance'
 import TextField from '@mui/material/TextField'
 import theme from '../../theme'
-import { toast } from 'react-toastify'
+import notifyError from '../../../utils/notifyError'
+import notify from '../../../utils/notify'
 import { useNavigate } from 'react-router-dom'
 
 type DataType = {
@@ -35,25 +36,12 @@ const validationSchema = yup.object({
 })
 
 const ChangeInfo: FC = () => {
-    const [completed, setCompleted] = useState(false)
     const navigate = useNavigate()
     const [userData, setUserData] = React.useState<DataType>({
         email: '',
         name: '',
         surname: ''
     })
-
-    const notify = (message) => toast.success(message, {
-        position: 'top-center',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-    })
-
 
     useEffect(() => {
         const email = JSON.parse(localStorage.getItem('email') || '[]')
@@ -81,7 +69,7 @@ const ChangeInfo: FC = () => {
                     surname: data.surname,
                 }
                 const res = await instance.post('/changeInfo', user)
-                notify('Your personal data successfully changed')
+                notify('Your personal data have been successfully changed')
                 localStorage.setItem('username', JSON.stringify(res.data.user.name))
                 localStorage.setItem('surname', JSON.stringify(res.data.user.surname))
             } catch (error) {
@@ -89,9 +77,11 @@ const ChangeInfo: FC = () => {
                 if (error instanceof Error) {
                     message = error.message
                     navigate('/500')
+                    notifyError(message)
                 }
                 else {
                     message = String(error)
+                    console.log(message)
                 }
             }
         }
