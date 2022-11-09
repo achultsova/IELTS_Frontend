@@ -13,6 +13,8 @@ import SignUp from '../SignUp'
 import Profile from '../Profile'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import PrivateRoute from '../../../utils/privateRoute'
+import Denied from '../Denied/Denied'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
@@ -30,7 +32,10 @@ const App = () => {
                         <Route path='setNewPassword/:id' element={<SetNewPassword />} />
                         <Route path='/signin' element={<SignIn />} />
                         <Route path='/signup' element={<SignUp />} />
-                        <Route path={'/profile'} element={<Profile />} />
+                        <Route path='/denied' element={<Denied />} />
+                        <Route path='/' element={<PrivateRoute roleRequired="USER" />}>
+                            <Route path={'/profile'} element={<Profile />} />
+                        </Route>
                     </Routes>
                     <Footer />
                 </BrowserRouter>
