@@ -42,10 +42,10 @@ const PrivateRoute = (props: ProtectedRouteType) => {
                 <Navigate to="/denied" />
             )
         ) : (
-            <Navigate to="/login" />
+            <Navigate to="/signin" />
         )
     } else {
-        return auth ? <Outlet /> : <Navigate to="/login" />
+        return auth ? <Outlet /> : <Navigate to="/signin" />
     }
 }
 
