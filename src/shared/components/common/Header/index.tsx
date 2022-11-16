@@ -21,8 +21,6 @@ import Popper from '@mui/material/Popper'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 
-const pages = ['Tests', 'Vocabulary', 'Topics']
-
 
 const Header = () => {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null)
@@ -126,11 +124,27 @@ const Header = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                    <Link to='/testsAdmin' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Tests</Link>
+                                ) : (
+                                    <Link to='/tests' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Tests</Link>
+                                )}
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                    <Link to='/vocabularyAdmin' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Vocabulary</Link>
+                                ) : (
+                                    <Link to='/vocabulary' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Vocabulary</Link>
+                                )}
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                    <Link to='/topicsAdmin' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Topics</Link>
+                                ) : (
+                                    <Link to='/topics' style={{ textAlign: 'center', color: 'black', textDecoration: 'none' }}>Topics</Link>
+                                )}
+                            </MenuItem>
                         </Menu>
                     </Box>
                     <AutoStoriesIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
@@ -153,15 +167,36 @@ const Header = () => {
                         IELTS
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                <Link to='/testsAdmin' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Tests</Link>
+                            ) : (
+                                <Link to='/tests' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Tests</Link>
+                            )}
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                <Link to='/vocabularyAdmin' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Vocabulary</Link>
+                            ) : (
+                                <Link to='/vocabulary' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Vocabulary</Link>
+                            )}
+                        </Button>
+                        <Button
+                            onClick={handleCloseNavMenu}
+                            sx={{ my: 2, color: 'white', display: 'block' }}
+                        >
+                            {JSON.parse(localStorage.getItem('isAdmin')) === true ? (
+                                <Link to='/topicsAdmin' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Topics</Link>
+                            ) : (
+                                <Link to='/topics' style={{ textAlign: 'center', color: 'white', textDecoration: 'none' }}>Topics</Link>
+                            )}
+                        </Button>
                     </Box>
                     {localStorage.getItem('isAuth') ? (
                         <Box>
@@ -216,7 +251,7 @@ const Header = () => {
                     )}
                 </Toolbar>
             </Container>
-        </AppBar>
+        </AppBar >
     )
 }
 export default Header
