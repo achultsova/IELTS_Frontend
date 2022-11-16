@@ -15,6 +15,9 @@ import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import PrivateRoute from '../../../utils/privateRoute'
 import Denied from '../pages/common/Denied/Denied'
+import TestsPageUser from '../pages/user/TestsPageUser'
+import TestsPageAdmin from '../pages/admin/TestsPage'
+import CreateTest from '../pages/admin/CreateTest'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
@@ -35,6 +38,13 @@ const App = () => {
                         <Route path='/denied' element={<Denied />} />
                         <Route path='/' element={<PrivateRoute roleRequired="USER" />}>
                             <Route path={'/profile'} element={<Profile />} />
+                        </Route>
+                        <Route path={'/tests'} element={<TestsPageUser />} />
+                        <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
+                            <Route path={'/testsAdmin'} element={<TestsPageAdmin />} />
+                        </Route>
+                        <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
+                            <Route path={'/createTest/:id'} element={<CreateTest />} />
                         </Route>
                     </Routes>
                     <Footer />
