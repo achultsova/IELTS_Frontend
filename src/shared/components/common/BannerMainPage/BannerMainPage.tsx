@@ -34,8 +34,8 @@ const BannerMainPage: FC = () => {
                             when an unknown printer took a galley of type and scrambled it to make a type
                             specimen book.
                         </Typography>
-                        <Link to={'/about'}>
-                            <Button variant='outlined' size='large' sx={{ color: '#393E59', borderColor: '#393E59' }}>
+                        <Link to={'/about'} style={{ textDecoration: 'none' }}>
+                            <Button variant='outlined' size='large' sx={{ color: '#393E59', borderColor: '#393E59', textDecoration: 'none' }}>
                                 About us
                             </Button>
                         </Link>

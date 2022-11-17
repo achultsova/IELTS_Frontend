@@ -18,6 +18,9 @@ import Denied from '../pages/common/Denied/Denied'
 import TestsPageUser from '../pages/user/TestsPageUser'
 import TestsPageAdmin from '../pages/admin/TestsPage'
 import CreateTest from '../pages/admin/CreateTest'
+import FirstSectionReading from '../pages/admin/FirstSectionReading'
+import ThirdSectionReading from '../pages/admin/ThirdSectionReading'
+import SecondSectionReading from '../pages/admin/SecondSectionReading'
 
 const App = () => {
     const [user, setUser] = useState<User>(null)
@@ -45,6 +48,15 @@ const App = () => {
                         </Route>
                         <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
                             <Route path={'/createTest/:id'} element={<CreateTest />} />
+                        </Route>
+                        <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
+                            <Route path={'/createTest/:id/firstSection'} element={<FirstSectionReading />} />
+                        </Route>
+                        <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
+                            <Route path={'/createTest/:id/secondSection'} element={<SecondSectionReading />} />
+                        </Route>
+                        <Route path='/' element={<PrivateRoute roleRequired="ADMIN" />}>
+                            <Route path={'/createTest/:id/thirdSection'} element={<ThirdSectionReading />} />
                         </Route>
                     </Routes>
                     <Footer />

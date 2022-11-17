@@ -30,6 +30,16 @@ const CreateTest: FC = () => {
         }
         getNumber()
     }, [])
+
+    const handleFirstSection = () => {
+        navigate(`/createTest/${id}/firstSection`)
+    }
+    const handleSecondSection = () => {
+        navigate(`/createTest/${id}/secondSection`)
+    }
+    const handleThirdSection = () => {
+        navigate(`/createTest/${id}/thirdSection`)
+    }
     return (
         <Box sx={{
             minHeight: '100vh',
@@ -57,13 +67,13 @@ const CreateTest: FC = () => {
                     disabled
                     sx={{ paddingBottom: theme.spacing(7), width: '100%' }}
                 />
-                <Button size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
+                <Button onClick={handleFirstSection} size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
                     Section 1 (questions 1-14)
                 </Button>
-                <Button size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
+                <Button onClick={handleSecondSection} size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
                     Section 2 (questions 15-27)
                 </Button>
-                <Button size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
+                <Button onClick={handleThirdSection} size='large' sx={{ width: '100%', color: 'black', border: '1px solid black', mb: theme.spacing(8) }}>
                     Section 3 (questions 28-40)
                 </Button>
                 <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
